@@ -35,6 +35,7 @@ const CameraPanel = () => {
         top: "36px",
         transform: "rotate(0deg)",
         opacity: 1,
+        marginTop:"25px"
       }}
     >
       <Box

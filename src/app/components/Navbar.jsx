@@ -8,13 +8,13 @@ import {
   Avatar,
   IconButton
 } from "@mui/material";
-import "../globals.css"; // Import CSS
+import "../globals.css"; 
 
 function Navbar() {
   const [open, setOpen] = useState(false);
   return (
-    <AppBar position="static" className="navbar" elevation={0} sx={{
-    backgroundColor: 'transparent', // or use 'inherit'
+    <AppBar position="fixed" className="navbar" elevation={0} sx={{
+    backgroundColor: 'transparent', 
     borderBottom: '1px solid #333',
   }}>
       <Toolbar className="navbar-toolbar">

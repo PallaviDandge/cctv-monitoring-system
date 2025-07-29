@@ -1,4 +1,3 @@
-// import Image from "next/image";
 import CameraPanel from './components/CameraP';
 import "./globals.css";
 

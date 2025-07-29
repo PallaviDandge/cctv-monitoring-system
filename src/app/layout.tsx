@@ -12,9 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
            <Navbar />
           {children}
         </Provider>
-         
-          
-             </body>
+      </body>
     </html>
   )
 }
