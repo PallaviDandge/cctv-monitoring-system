@@ -26,7 +26,7 @@ const CameraPanel = () => {
  return (
     <Box
       sx={{
-        width: "1490px",
+        width: "1392px",
         height: "820px",
         padding: "24px",
         gap: "24px",
@@ -38,7 +38,7 @@ const CameraPanel = () => {
     >
       <Box
         sx={{
-          width: "1478px",
+          width: "796px",
           height: "450px",
           gap: "24px",
           transform: "rotate(0deg)",
