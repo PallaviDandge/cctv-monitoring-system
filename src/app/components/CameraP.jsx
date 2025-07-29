@@ -5,25 +5,26 @@ import {
   Typography,
   Card,
   CardMedia,
-  List,
-  ListItem,
   Button,
-  Grid,
   ImageList,
-  ImageListItem
+  ImageListItem,
 } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import AccessTimeSharpIcon from "@mui/icons-material/AccessTimeSharp";
-import { SEEDED_INCIDENTS } from "../constants/incidents";
 //utils
 import formatIncidentTime from "../utils/FormatTime";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import { useGetIncidentsQuery } from "./incidentApi";
 
 const CameraPanel = () => {
+  const { data: incidents = [], isLoading, error } = useGetIncidentsQuery();
 
+  if (isLoading) return <div>Loading incidents...</div>;
+  if (error) return <div>Error loading incidents</div>;
+  console.log("incidents", incidents);
 
- return (
+  return (
     <Box
       sx={{
         width: "1490px",
@@ -33,7 +34,7 @@ const CameraPanel = () => {
         position: "relative",
         top: "36px",
         transform: "rotate(0deg)",
-        opacity: 1
+        opacity: 1,
       }}
     >
       <Box
@@ -43,7 +44,7 @@ const CameraPanel = () => {
           gap: "24px",
           transform: "rotate(0deg)",
           opacity: 1,
-          display: "flex"
+          display: "flex",
         }}
       >
         {/* Left: Main Camera Feed */}
@@ -53,7 +54,7 @@ const CameraPanel = () => {
             width: "996px",
             height: "449px",
             position: "relative",
-            backgroundColor: "#151514"
+            backgroundColor: "#151514",
           }}
         >
           <CardMedia
@@ -72,12 +73,10 @@ const CameraPanel = () => {
               gap: "6px",
               backgroundColor: "#1C1C1C",
               padding: "4px 8px",
-              borderRadius: "6px"
+              borderRadius: "6px",
             }}
           >
-            <CalendarMonthOutlinedIcon
-              sx={{ fontSize: 16, color: "#FFFFFF" }}
-            />
+            <CalendarMonthOutlinedIcon sx={{ fontSize: 16, color: "#FFFFFF" }} />
             <Typography sx={{ fontSize: "12px", color: "#FFFFFF" }}>
               07 Jul 2025
             </Typography>
@@ -92,20 +91,20 @@ const CameraPanel = () => {
               left: "12px",
               backgroundColor: "#0B0B0B",
               gap: "4px",
-              padding: "2px 8px 2px 10px"
+              padding: "2px 8px 2px 10px",
             }}
           >
             <img
               src="/images/disc.png"
               alt="dics"
-              style={{ height: "12px", width: "12px",marginTop:'5px' }}
+              style={{ height: "12px", width: "12px", marginTop: "5px" }}
             />
             <Typography
               sx={{
                 color: "#ffffff",
                 width: "82px",
                 height: "20px",
-                fontWeight: 500
+                fontWeight: 500,
               }}
             >
               Camera-01
@@ -118,10 +117,10 @@ const CameraPanel = () => {
               bottom: "0.1px",
               right: "16px",
               display: "flex",
-              gap: "12px"
+              gap: "12px",
             }}
           >
-            {SEEDED_INCIDENTS.slice(0, 2).map((incident) => (
+            {incidents.slice(0, 2).map((incident) => (
               <Box
                 key={incident.id}
                 display="flex"
@@ -131,18 +130,18 @@ const CameraPanel = () => {
                 <ImageList
                   sx={{
                     overflow: "hidden", // disables scrollbars
-                    borderRadius: "6px" // matches image radius
+                    borderRadius: "6px", // matches image radius
                   }}
                   cols={1}
                 >
                   <ImageListItem sx={{ position: "relative" }}>
                     <img
                       src={incident.thumbnailUrl}
-                      alt={incident.camera}
+                      alt={incident.camera.name}
                       style={{
                         objectFit: "cover",
                         display: "block", // avoids scrollbar due to inline rendering
-                        borderRadius: "3.2px"
+                        borderRadius: "3.2px",
                       }}
                     />
 
@@ -157,15 +156,13 @@ const CameraPanel = () => {
                         backgroundColor: "#0B0B0B",
                         padding: "2px 6px",
                         borderRadius: "4px",
-                        width: "calc(100% - 8px)" // ensures tight alignment inside image
+                        width: "calc(100% - 8px)", // ensures tight alignment inside image
                       }}
                     >
                       <Typography sx={{ fontSize: "10px", color: "#FFFFFF" }}>
                         Camera - 0{incident.cameraId}
                       </Typography>
-                      <MoreVertOutlinedIcon
-                        sx={{ fontSize: "12px", color: "#FFFFFF" }}
-                      />
+                      <MoreVertOutlinedIcon sx={{ fontSize: "12px", color: "#FFFFFF" }} />
                     </Box>
                   </ImageListItem>
                 </ImageList>
@@ -182,7 +179,7 @@ const CameraPanel = () => {
             transform: "rotate(0deg)",
             opacity: 1,
             backgroundColor: "#131313",
-            borderRadius: "6px"
+            borderRadius: "6px",
           }}
         >
           {/* Header */}
@@ -194,7 +191,7 @@ const CameraPanel = () => {
               padding: "16px",
               gap: "8px",
               transform: "rotate(0deg)",
-              opacity: 1
+              opacity: 1,
             }}
           >
             <Box
@@ -202,7 +199,7 @@ const CameraPanel = () => {
                 width: "24px",
                 height: "26px",
                 transform: "rotate(0deg)",
-                opacity: 1
+                opacity: 1,
               }}
             >
               <img src="/images/Featured icon.png" alt="dashboard icon" />
@@ -215,7 +212,7 @@ const CameraPanel = () => {
                 width: "508px",
                 height: "18px",
                 justifyContent: "space-between",
-                mt: 0.6
+                mt: 0.6,
               }}
             >
               <Typography
@@ -225,10 +222,10 @@ const CameraPanel = () => {
                   fontSize: "18px",
                   color: "#FAFAFA",
                   lineHeight: "100%",
-                  letterSpacing: "-2.5%"
+                  letterSpacing: "-2.5%",
                 }}
               >
-                {SEEDED_INCIDENTS.length} Unresolved Incident
+                {incidents.length} Unresolved Incident
               </Typography>
               <Box
                 display={"flex"}
@@ -236,7 +233,7 @@ const CameraPanel = () => {
                   width: "200px",
                   height: "20px",
                   gap: "3px",
-                  justifyContent: "space-between"
+                  justifyContent: "space-between",
                 }}
               >
                 <Box>
@@ -249,7 +246,7 @@ const CameraPanel = () => {
                         width: "20px",
                         height: "20px",
                         marginLeft: "-6px",
-                        zIndex: idx + 1
+                        zIndex: idx + 1,
                       }}
                     />
                   ))}
@@ -265,7 +262,7 @@ const CameraPanel = () => {
                     borderRadius: "16px",
                     textTransform: "none",
                     width: "145px",
-                    height: "20px"
+                    height: "20px",
                   }}
                 >
                   <img
@@ -274,7 +271,7 @@ const CameraPanel = () => {
                     style={{
                       width: "12px",
                       height: "12px",
-                      marginRight: "4px"
+                      marginRight: "4px",
                     }}
                   />
                   4 resolved incident
@@ -286,21 +283,21 @@ const CameraPanel = () => {
           {/* Incident Preview Cards */}
           <Box
             sx={{
-              margin:'0',
+              margin: "0",
               flexGrow: 1,
               overflowY: "auto",
-               padding: "12px ",
+              padding: "12px ",
               gap: "16px",
               maxHeight: "350px",
               "&::-webkit-scrollbar": {
-                display: "none"
+                display: "none",
               },
 
               scrollbarWidth: "none",
-              msOverflowStyle: "none"
+              msOverflowStyle: "none",
             }}
           >
-            {SEEDED_INCIDENTS.map((incident) => (
+            {incidents.map((incident) => (
               <Box
                 key={incident.id}
                 sx={{
@@ -310,19 +307,19 @@ const CameraPanel = () => {
                   alignItems: "center",
                   gap: "16px",
                   borderRadius: "6px",
-                  padding: "4px 12px 4px 4px"
+                  padding: "4px 12px 4px 4px",
                 }}
               >
                 {/* Camera snapshot */}
                 <Box sx={{ width: "126px", height: "72px" }}>
                   <img
                     src={incident.thumbnailUrl}
-                    alt="snapshot"
+                    alt={`Snapshot from ${incident.camera.name}`}
                     style={{
                       width: "100%",
                       height: "100%",
                       objectFit: "cover",
-                      borderRadius: "6px"
+                      borderRadius: "6px",
                     }}
                   />
                 </Box>
@@ -330,7 +327,7 @@ const CameraPanel = () => {
                   sx={{
                     width: "297px",
                     height: "67px",
-                    justifyContent: "space-between"
+                    justifyContent: "space-between",
                   }}
                 >
                   {/* Incident icon */}
@@ -338,38 +335,35 @@ const CameraPanel = () => {
                     display={"flex"}
                     sx={{ width: "297px", height: "16px", gap: "4px" }}
                   >
-                    <img src={incident.icon} alt="incident-icon" />
+                    <img src={incident.type.icon} alt={`${incident.type.type} icon`} />
                     <Typography
                       sx={{
                         fontSize: "14px",
                         color: "#FFFFFF",
-                        fontWeight: 500
+                        fontWeight: 500,
                       }}
                     >
-                      {incident.type}
+                      {incident.type.type}
                     </Typography>
                   </Box>
 
                   {/* Incident details */}
-                  <Box
-                    sx={{ width: "297px", height: "29px", gap: "5px", mt: 2 }}
-                  >
-                    <Box
-                      display={"flex"}
-                      sx={{ width: "auto", height: "12px", gap: "4px" }}
-                    >
-                      <img src={incident.cameraImg} alt="camera" />
+                  <Box sx={{ width: "297px", height: "29px", gap: "5px", mt: 2 }}>
+                    <Box display={"flex"} sx={{ width: "auto", height: "12px", gap: "4px" }}>
+                      <img
+                        src="/images/camera.png"
+                        alt="camera icon"
+                        style={{ height: 12, width: 12 }}
+                      />
                       <Typography sx={{ fontSize: "12px", color: "#B0B0B0" }}>
-                        {incident.camera}
+                        {incident.camera.name}
                       </Typography>
                     </Box>
                     <Box
                       display={"flex"}
                       sx={{ width: "297px", height: "12px", gap: "7px", mt: 1 }}
                     >
-                      <AccessTimeSharpIcon
-                        sx={{ width: "9px", height: "10px" }}
-                      />
+                      <AccessTimeSharpIcon sx={{ width: "9px", height: "10px" }} />
                       <Typography
                         sx={{
                           width: "137px",
@@ -378,7 +372,7 @@ const CameraPanel = () => {
                           fontWeight: 700,
                           lineHeight: "100%",
                           fontSize: "10px",
-                          color: "#FFFFFF"
+                          color: "#FFFFFF",
                         }}
                       >
                         {formatIncidentTime(incident.tsStart, incident.tsEnd)}
@@ -394,7 +388,7 @@ const CameraPanel = () => {
                     width: "83px",
                     height: "36px",
                     fontSize: "10px",
-                    padding: "10px 12px 10px 12px"
+                    padding: "10px 12px 10px 12px",
                   }}
                 >
                   <Button sx={{ color: "#FFCC00", textTransform: "none" }}>
