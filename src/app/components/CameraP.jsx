@@ -26,7 +26,7 @@ const CameraPanel = () => {
  return (
     <Box
       sx={{
-        width: "1392px",
+        width: "1440px",
         height: "820px",
         padding: "24px",
         gap: "24px",
@@ -38,7 +38,7 @@ const CameraPanel = () => {
     >
       <Box
         sx={{
-          width: "796px",
+          width: "1392px",
           height: "450px",
           gap: "24px",
           transform: "rotate(0deg)",
@@ -50,7 +50,7 @@ const CameraPanel = () => {
 
         <Card
           sx={{
-            width: "996px",
+            width: "796px",
             height: "449px",
             position: "relative",
             backgroundColor: "#151514"
